@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F5F8F2">
+  <meta name="description" content="Komute — Plan. Navigate. Arrive. AI commute guidance for public transport in the Philippines.">
+  <title>Komute</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <main id="content" class="content" tabindex="-1">
+
+      <!-- PLAN (home) -->
+      <section id="screen-home" class="screen" aria-label="Plan">
+        <div class="page">
+          <header class="home-head">
+            <div>
+              <h1 class="brand">Komute</h1>
+              <p class="tagline">Plan. Navigate. Arrive.</p>
+            </div>
+            <span class="pill">VERSION 14 • AUTO AI ROUTES</span>
+          </header>
+
+          <h2 class="display">Where do you want to go?</h2>
+          <p class="lead">Choose exact endpoints, then let Komute AI design commute suggestions and guidelines.</p>
+
+          <div class="card card-24 form-card">
+            <label class="field" for="origin">
+              <span class="field-icon" data-icon="my_location"></span>
+              <input id="origin" type="text" autocomplete="off" placeholder=" " value="PUP Sta. Mesa">
+              <span class="field-label">Starting point</span>
+            </label>
+
+            <div class="card card-18 loc-card">
+              <div class="loc-head">
+                <div class="grow">
+                  <div class="title-md">Live current location</div>
+                  <div id="loc-sub" class="body-sm">Allow location to show the blue dot.</div>
+                </div>
+                <button id="loc-allow" class="btn btn-filled btn-pill" type="button">
+                  <span data-icon="my_location" data-size="18"></span><span>Allow</span>
+                </button>
+              </div>
+              <div id="map-current" class="map" style="height:260px"></div>
+              <div class="loc-line">
+                <span data-icon="location_on" data-size="20"></span>
+                <span id="loc-text" class="body-sm">Waiting for a location estimate…</span>
+              </div>
+              <p class="label-sm muted">Indoor accuracy depends on Wi-Fi, cellular signals, and your device's location services; the displayed accuracy is not hidden.</p>
+            </div>
+
+            <div class="dest">
+              <label class="field" for="destination">
+                <span class="field-icon" data-icon="location_on"></span>
+                <input id="destination" type="text" autocomplete="off" placeholder="Example: Ayala Triangle">
+                <span class="field-label">Destination</span>
+              </label>
+
+              <div class="row gap8">
+                <button id="dest-search" class="btn btn-filled btn-pill grow" type="button" disabled>
+                  <span data-icon="search" data-size="18"></span><span>Search</span>
+                </button>
+                <button id="dest-pin" class="btn btn-outlined btn-pill grow" type="button">
+                  <span data-icon="map" data-size="18"></span><span>Pin on map</span>
+                </button>
+              </div>
+
+              <div id="dest-progress" class="progress" hidden><div class="progress-bar"></div></div>
+              <p id="dest-message" class="body-sm muted" hidden></p>
+              <div id="dest-suggestions" class="suggestions"></div>
+
+              <div id="dest-map-wrap" hidden>
+                <p class="body-sm">Tap the free map to move the red destination pin.</p>
+                <div id="map-dest" class="map" style="height:300px"></div>
+                <div class="card pinned">
+                  <div class="label-lg">Pinned destination</div>
+                  <div id="pinned-label" class="pinned-text"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="label-lg quick-title">Quick destinations</div>
+            <div id="chips" class="chips"></div>
+
+            <button id="find-routes" class="btn btn-filled btn-16 btn-block" type="button" disabled>
+              <span data-icon="route" data-size="24"></span><span>Find routes</span>
+            </button>
+          </div>
+
+          <div class="card card-22 mode-card">
+            <div class="mode-icon"><span data-icon="school" data-size="24"></span></div>
+            <div class="grow mode-text">
+              <div class="semibold">New Commuter Mode</div>
+              <div class="body-md">Show extra transfer and payment instructions.</div>
+            </div>
+            <label class="switch" aria-label="New Commuter Mode">
+              <input id="new-commuter" type="checkbox" checked>
+              <span class="track"><span class="thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="notice notice-amber">
+            <span data-icon="shield" data-size="24"></span>
+            <p class="body-md">AI suggestions may be incomplete or outdated. Verify signs, stops, fares, schedules, and service notices before boarding.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section id="screen-results" class="screen" aria-label="AI commute plan" hidden></section>
+
+      <!-- SAVED -->
+      <section id="screen-saved" class="screen" aria-label="Saved places" hidden></section>
+
+      <!-- GUIDE -->
+      <section id="screen-guide" class="screen" aria-label="New Commuter Guide" hidden></section>
+    </main>
+
+    <nav id="tabs" class="tabs" aria-label="Main">
+      <button class="tab selected" data-tab="home" type="button"><span data-icon="home" data-size="24"></span><span class="label-md">Plan</span></button>
+      <button class="tab" data-tab="saved" type="button"><span data-icon="bookmarks" data-size="24"></span><span class="label-md">Saved</span></button>
+      <button class="tab" data-tab="guide" type="button"><span data-icon="menu_book" data-size="24"></span><span class="label-md">Guide</span></button>
+    </nav>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

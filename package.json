@@ -1,0 +1,14 @@
+{
+  "name": "komute-web",
+  "version": "14.0.0",
+  "description": "Komute website: plan Philippine commutes with AI guidance",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs"
+  }
+}
